@@ -1,4 +1,5 @@
 import {
+    Button,
     CircularProgress,
     Container,
     IconButton,
@@ -19,6 +20,7 @@ import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 
+
 export default function GetAllCube() {
     let i = 0;
     const [loading, setLoading] = useState(false);
@@ -26,7 +28,7 @@ export default function GetAllCube() {
 
     useEffect(() => {
         setLoading(true);
-        fetch(`http://16.16.91.213:80/cubes`)
+        fetch(`api/cubes/details`)
             .then((response) => response.json())
             .then((data) => {
                 setCubes(data);
@@ -34,6 +36,12 @@ export default function GetAllCube() {
             });
     }, []);
 
+    const handleSort = (e) => {
+        const sortedData = [...cubes].sort((a, b) => {
+            return a.name > b.name ? 1 : -1
+        })
+        setCubes(sortedData)
+    }
 
     return (
         <Container>
@@ -53,6 +61,9 @@ export default function GetAllCube() {
                             <RemoveRedEyeIcon color="primary"/>
                         </Tooltip>
                     </IconButton>
+                    <Button variant="contained" color="secondary" onClick={handleSort}>
+                        Sort
+                    </Button>
                 </div>
             )}
             {!loading && cubes.length > 0 && (
@@ -73,24 +84,24 @@ export default function GetAllCube() {
                                     </TableCell>
                                     <TableCell align="center" component="th" scope="row">
                                         <Link to={`/cubes/${cubes[index]}/details`} title="View cube details">
-                                            {cubes[index]}
+                                            {cube.name}
                                         </Link>
                                     </TableCell>
                                     <TableCell align="right">
                                         <IconButton
                                             component={Link}
                                             sx={{mr: 3}}
-                                            to={`/cubes/${cubes[index]}/details`}>
+                                            to={`/cubes/${cube.id}/details`}>
                                             <Tooltip title="View cubes details" arrow>
                                                 <ReadMoreIcon color="primary"/>
                                             </Tooltip>
                                         </IconButton>
 
-                                        <IconButton component={Link} sx={{mr: 3}} to={`/cubes/${cubes[index]}/edit`}>
+                                        <IconButton component={Link} sx={{mr: 3}} to={`/cubes/${cube.id}/edit`}>
                                             <EditIcon/>
                                         </IconButton>
 
-                                        <IconButton component={Link} sx={{mr: 3}} to={`/cubes/${cubes[index]}/delete`}>
+                                        <IconButton component={Link} sx={{mr: 3}} to={`/cubes/${cube.id}/delete`}>
                                             <DeleteForeverIcon sx={{color: "red"}}/>
                                         </IconButton>
                                     </TableCell>
