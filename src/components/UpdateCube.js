@@ -22,7 +22,7 @@ export default function UpdateCube() {
         e.preventDefault()
         const cube={id,type,price,name,description,magnetic}
         console.log(cube)
-        fetch("api/cubes/" + String(id), {
+        fetch("http://16.16.91.213:80/cubes/" + String(id), {
             method: "PUT",
             headers: {"Content-Type": "application/json"},
             body: JSON.stringify(cube)

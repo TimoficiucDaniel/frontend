@@ -13,7 +13,7 @@ export default function DeleteCubeById() {
 
     const handleDelete = (e) => {
         e.preventDefault()
-        fetch("api/cubes/" + parseInt(id), {
+        fetch("http://16.16.91.213:80/cubes/" + parseInt(id), {
             method: "DELETE"
         })
             .then(() => this.setState({status: "Delete successful"}));

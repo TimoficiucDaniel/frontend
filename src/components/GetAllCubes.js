@@ -26,7 +26,7 @@ export default function GetAllCube() {
 
     useEffect(() => {
         setLoading(true);
-        fetch(`api/cubes`)
+        fetch(`http://16.16.91.213:80/cubes`)
             .then((response) => response.json())
             .then((data) => {
                 setCubes(data);

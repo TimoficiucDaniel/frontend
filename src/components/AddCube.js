@@ -20,7 +20,7 @@ export default function AddCube() {
         e.preventDefault()
         const cube={type,price,name,description,magnetic}
         console.log(cube)
-        fetch("api/cubes", {
+        fetch("http://16.16.91.213:80/cubes", {
             method: "POST",
             headers: {"Content-Type": "application/json"},
             body: JSON.stringify(cube)

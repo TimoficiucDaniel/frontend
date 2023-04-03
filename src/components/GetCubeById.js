@@ -12,7 +12,7 @@ export default function GetCubeById() {
     const [cube, setCube] = useState('')
 
     useEffect(() => {
-        fetch("api/cubes/" + String(cubeId))
+        fetch("http://16.16.91.213:80/cubes/" + String(cubeId))
             .then(res => res.json())
             .then((result) => {
                 setCube(result);
