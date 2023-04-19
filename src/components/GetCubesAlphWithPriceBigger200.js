@@ -9,7 +9,7 @@ export default function GetCubesAlphWithPriceBigger200() {
 
 
     useEffect(()=>{
-        fetch("http://16.16.91.213:80/cubes/stats/byAlphabetical")
+        fetch("http://localhost:80/cubes/stats/byAlphabetical")
             .then(res=>res.json())
             .then((result)=>{
             setCubes(result);

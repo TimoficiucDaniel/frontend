@@ -10,12 +10,14 @@ export default function GetCubeById() {
     const {cubeId} = useParams()
     const [id, setId] = useState(cubeId)
     const [cube, setCube] = useState('')
+    const [review, setReview] = useState([])
 
     useEffect(() => {
-        fetch("http://16.16.91.213:80/cubes/" + String(cubeId))
+        fetch("http://localhost:80/cubes/" + String(cubeId))
             .then(res => res.json())
             .then((result) => {
                 setCube(result);
+                setReview(cube.reviews)
             });
     }, []);
 
@@ -36,16 +38,25 @@ export default function GetCubeById() {
                                disabled
                     /><br/>
                 </Box>
-                    <Paper elevation={6}
-                           style={{margin:"10px",padding:"15px",textAlign:"left"}} key={parseInt(cube.id)}>
-                            Id:{parseInt(cube.id)}<br/>
-                            Name:{cube.name}<br/>
-                            Price:{parseInt(cube.price)}<br/>
-                            Type:{cube.type}<br/>
-                            Description:{cube.description}<br/>
-                            Magnetic:{String(cube.magnetic)}
-                            {/*ProducerId:{cube.cubesProducer[i].producer.id}*/}
-                    </Paper>
+                <Paper elevation={6}
+                       style={{margin: "10px", padding: "15px", textAlign: "left"}} key={parseInt(cube.id)}>
+                    Id:{parseInt(cube.id)}<br/>
+                    Name:{cube.name}<br/>
+                    Price:{parseInt(cube.price)}<br/>
+                    Type:{cube.type}<br/>
+                    Description:{cube.description}<br/>
+                    Magnetic:{String(cube.magnetic)}<br/>
+                    Review:{String(cube.review)}<br/>
+                    {/*{review.map((review,index)=>(<p>*/}
+                    {/*    Review_Username: {review.username}<br/>*/}
+                    {/*    Review_description: {review.description}<br/>*/}
+                    {/*    Review_rating: {review.rating}<br/>*/}
+                    {/*    Review_date: {review.date}<br/>*/}
+                    {/*    Review_recommend: {review.recommend}*/}
+                    {/*    </p>*/}
+                    {/*))}*/}
+                    {/*ProducerId:{cube.cubesProducer[i].producer.id}*/}
+                </Paper>
                 </Paper>
         </Container>
     );
