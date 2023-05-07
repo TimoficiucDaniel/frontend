@@ -1,5 +1,8 @@
 import {Container, CssBaseline, Typography} from "@mui/material";
 import React from "react";
+import Cookies from "js-cookie";
+
+const token = Cookies.get("timo")
 
 export const Home = () => {
     return (
@@ -14,3 +17,5 @@ export const Home = () => {
         </React.Fragment>
     );
 };
+
+export const apiaddress = "https://incercaredeacasa2.mooo.com"

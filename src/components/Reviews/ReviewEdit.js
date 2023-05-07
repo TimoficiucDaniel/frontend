@@ -6,33 +6,40 @@ import Textarea from '@mui/joy/Textarea';
 import {Button, Container, FormControlLabel, Paper, Radio, RadioGroup} from "@mui/material";
 import {FormControl, FormLabel} from "@mui/joy";
 import {useNavigate, useParams} from "react-router-dom";
-import {apiaddress} from "./Home";
+import {apiaddress} from "../Home";
 import Cookies from "js-cookie";
 
 const token = Cookies.get("timo")
-export default function UpdateCube() {
-    const {cubeId} = useParams()
+export default function ReviewEdit() {
+    const {reviewId} = useParams()
     const navigate = useNavigate()
     const paperStyle = {padding: '50px 20px', width: 600, margin: '20px auto'}
-    const [id, setId] = useState(cubeId)
-    const [name, setName] = useState('')
-    const [price, setPrice] = useState('')
-    const [type, setType] = useState('')
+    const [id, setId] = useState(reviewId)
+    const [username, setUsername] = useState('')
+    const [rating, setRating] = useState('')
+    const [date, setDate] = useState('')
     const [description, setDescription] = useState('')
-    const [magnetic, setMagnetic] = useState('')
+    const [recommend, setRecommend] = useState('')
 
     const handleUpdate = (e) => {
         e.preventDefault()
-        const cube={id,type,price,name,description,magnetic}
+        const cube = {
+            id,
+            date: date,
+            rating: rating,
+            username: username,
+            description: description,
+            recommend: recommend
+        }
         console.log(cube)
-        fetch(String(apiaddress) + "/cubes/" + String(id), {
+        fetch(String(apiaddress) + "/reviews/" + String(id), {
             method: "PUT",
             headers: {"Content-Type": "application/json"},
             body: JSON.stringify(cube)
         }).then(() => {
-            console.log("Cube updated")
+            console.log("Review updated")
         })
-        navigate("/cubes")
+        navigate("/reviews")
     }
     return (
         <Container>
@@ -40,7 +47,7 @@ export default function UpdateCube() {
                 <Box
                     component="form"
                     sx={{
-                        '& > :not(style)': { m: 2, width:'550px'},
+                        '& > :not(style)': {m: 2, width: '550px'},
                     }}
                     noValidate
                     autoComplete="off"
@@ -50,17 +57,21 @@ export default function UpdateCube() {
                                value={id}
                                disabled
                     /><br/>
-                    <TextField id="outlined-basic" label="Name" variant="outlined"
-                               value={name}
-                               onChange={(e)=>setName(e.target.value)}
+                    <TextField id="outlined-basic" label="Username" variant="outlined"
+                               value={username}
+                               onChange={(e) => setUsername(e.target.value)}
                     /><br/>
-                    <TextField id="outlined-basic" label="Price" variant="outlined"
-                               onChange={(e)=>setPrice(parseInt(e.target.value))}
+                    <TextField id="outlined-basic" label="Rating" variant="outlined"
+                               onChange={(e) => setRating(parseInt(e.target.value))}
                     /><br/>
-                    <TextField id="outlined-basic" label="Type" variant="outlined"
-                               value={type}
-                               onChange={(e)=>setType(e.target.value)}
-                    /><br/>
+                    <FormControl>
+                        <FormLabel>Date</FormLabel>
+                        <TextField id="outlined-basic" variant="outlined"
+                                   type="date"
+                                   value={date}
+                                   onChange={(e) => setDate(e.target.value)}
+                        />
+                    </FormControl><br/>
                     <FormControl>
                         <FormLabel>Description</FormLabel>
                         <Textarea
@@ -68,19 +79,19 @@ export default function UpdateCube() {
                             label="Description"
                             variant="outlined"
                             required
-                            sx={{ left:'9px', height:'200px' }}
+                            sx={{left: '9px', height: '200px'}}
                             placeholder="Type here..."
                             value={description}
-                            onChange={(e)=>setDescription(e.target.value)}
+                            onChange={(e) => setDescription(e.target.value)}
                         />
                     </FormControl><br/>
                     <FormControl>
-                        <FormLabel id="radioId">Magnetic?</FormLabel>
+                        <FormLabel id="radioId">Recommend?</FormLabel>
                         <RadioGroup
                             aria-labelledby="radioId"
                             name="radiobuttongroup"
-                            value={magnetic}
-                            onChange={(e)=>setMagnetic(e.target.value)}
+                            value={recommend}
+                            onChange={(e) => setRecommend(e.target.value)}
                             required
                         >
                             <FormControlLabel value='true' control={<Radio/>} label="Yes"/>
