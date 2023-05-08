@@ -18,7 +18,6 @@ import ReadMoreIcon from "@mui/icons-material/ReadMore";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import AddIcon from "@mui/icons-material/Add";
-import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 import {apiaddress} from "../Home";
 import Cookies from "js-cookie";
 
@@ -37,7 +36,7 @@ export default function GetAllCubesProducers() {
                 setCps(data);
                 setLoading(false);
             });
-    }, []);
+    }, [i]);
 
     const reloadData = () => {
         setLoading(true);

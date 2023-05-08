@@ -1,9 +1,11 @@
 import {
     Button,
     CircularProgress,
-    Container, FormControl,
+    Container,
+    FormControl,
     IconButton,
-    Paper, Select,
+    Paper,
+    Select,
     Table,
     TableBody,
     TableCell,
@@ -36,7 +38,7 @@ export default function GetAllProducers() {
                 setProducers(data);
                 setLoading(false);
             });
-    }, []);
+    }, [i]);
 
     const reloadData = () => {
         setLoading(true);

@@ -36,7 +36,7 @@ export default function GetAllCube() {
                 setReviews(data);
                 setLoading(false);
             });
-    }, []);
+    }, [i]);
 
     const reloadData = () => {
         setLoading(true);
