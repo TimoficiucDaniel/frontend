@@ -46,6 +46,7 @@ export default function GetAllCube() {
 
     const reloadData = () => {
         setLoading(true);
+        console.log(String(apiaddress) + "/cubes/details/" + String(i))
         fetch(String(apiaddress) + "/cubes/details/" + String(i)
             // ,
             // {
