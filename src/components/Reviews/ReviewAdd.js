@@ -54,7 +54,7 @@ export default function ReviewAdd() {
         }).then(() => {
             console.log("New review added")
         })
-        //navigate("/reviews")
+        navigate("/reviews")
     }
     return (
         <Container>

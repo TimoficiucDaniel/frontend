@@ -42,7 +42,7 @@ export default function GetAllCube() {
                 setCubes(data);
                 setLoading(false);
             });
-    }, []);
+    }, [i]);
 
     const reloadData = () => {
         setLoading(true);
