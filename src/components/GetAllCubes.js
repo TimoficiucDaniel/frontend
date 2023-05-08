@@ -46,12 +46,14 @@ export default function GetAllCube() {
 
     const reloadData = () => {
         setLoading(true);
-        fetch(String(apiaddress) + "/cubes/details/" + String(i),
-            {
-                headers: {
-                    'Authorization': `Bearer ${Cookies.get("timo")}`
-                }
-            })
+        fetch(String(apiaddress) + "/cubes/details/" + String(i)
+            // ,
+            // {
+            //     headers: {
+            //         'Authorization': `Bearer ${Cookies.get("timo")}`
+            //     }
+            // }
+        )
             .then((data) => {
                 setCubes(data);
                 setLoading(false);
