@@ -54,6 +54,8 @@ export default function LoginPage() {
             method: "POST",
             headers: {"Content-Type": "application/json"},
             body: JSON.stringify(user),
+            credentials: "include",
+            mode: "cors"
         }).then(response => {
             if (response.ok) {
                 return response.json();
