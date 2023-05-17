@@ -18,4 +18,4 @@ export const Home = () => {
     );
 };
 
-export const apiaddress = "https://incercaredeacasa3.jumpingcrab.com"
+export const apiaddress = "http://localhost:90/api"

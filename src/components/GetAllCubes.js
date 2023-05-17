@@ -13,7 +13,7 @@ import {
     Tooltip,
 } from "@mui/material";
 import React, {useEffect, useState} from "react";
-import {Link} from "react-router-dom";
+import {Link as FancyLink} from "react-router-dom";
 import ReadMoreIcon from "@mui/icons-material/ReadMore";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
@@ -21,6 +21,7 @@ import AddIcon from "@mui/icons-material/Add";
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 import {apiaddress} from "./Home";
 import Cookies from "js-cookie";
+import Link from '@mui/material/Link';
 
 let i = 0;
 
@@ -28,14 +29,18 @@ let i = 0;
 export default function GetAllCube() {
     const [loading, setLoading] = useState(false);
     const [cubes, setCubes] = useState([]);
+    const [count, setCount] = useState(0);
 
     useEffect(() => {
         setLoading(true);
-        console.log(`Bearer ${Cookies.get("timo")}`)
+        console.log(`timo= ${Cookies.get("timo")}`)
         fetch(String(apiaddress) + "/cubes/details/" + String(i)
-            // ,
-            // {headers:{
-            // 'Authorization': `Bearer ${Cookies.get("timo")}`}}
+            ,
+            {
+                headers: {
+                    'Cookie': `timo= ${Cookies.get("timo")}`
+                }
+            }
         )
             .then((response) => response.json())
             .then((data) => {
@@ -44,16 +49,34 @@ export default function GetAllCube() {
             });
     }, [i]);
 
+    useEffect(() => {
+        setLoading(true);
+        fetch(String(apiaddress) + "/cubes/count"
+            ,
+            {
+                headers: {
+                    'Cookie': `timo= ${Cookies.get("timo")}`
+                }
+            }
+        )
+            .then((response) => response.json())
+            .then((data) => {
+                setCount(data);
+                setLoading(false);
+            });
+    }, [i]);
+
     const reloadData = () => {
         setLoading(true);
         console.log(String(apiaddress) + "/cubes/details/" + String(i))
+        console.log(`Bearer ${Cookies.get("timo")}`)
         fetch(String(apiaddress) + "/cubes/details/" + String(i)
-            // ,
-            // {
-            //     headers: {
-            //         'Authorization': `Bearer ${Cookies.get("timo")}`
-            //     }
-            // }
+            ,
+            {
+                headers: {
+                    'Cookie': `timo= ${Cookies.get("timo")}`
+                }
+            }
         )
             .then((data) => {
                 setCubes(data);
@@ -77,6 +100,11 @@ export default function GetAllCube() {
         if (i >= 1)
             i = i - 1;
         reloadData()
+    }
+
+    const setPage = (page) => {
+        i = page;
+        reloadData();
     }
 
     return (
@@ -151,12 +179,52 @@ export default function GetAllCube() {
                     </Table>
                 </TableContainer>
             )}
-            <Button variant="contained" color="secondary" onClick={decPage}>
-                Prev Page
-            </Button>
-            <Button variant="contained" color="secondary" onClick={incPage}>
-                Next Page
-            </Button>
+            {/*<Button variant="contained" color="secondary" onClick={decPage}>*/}
+            {/*    Prev Page*/}
+            {/*</Button>*/}
+            {/*<Button variant="contained" color="secondary" onClick={incPage}>*/}
+            {/*    Next Page*/}
+            {/*</Button>*/}
+            <FancyLink href="#" onClick={() => {
+                setPage(0);
+                console.log(i)
+            }}>0 </FancyLink>
+            <FancyLink href="#" onClick={() => {
+                setPage(1);
+                console.log(i)
+            }}>1 </FancyLink>
+            <FancyLink href="#" onClick={() => {
+                setPage(2);
+                console.log(i)
+            }}>2 </FancyLink>
+            {/* render() {*/}
+            {/*if(i>3 && i<Math.floor(count/100-3))*/}
+            ...
+            <FancyLink href="#" onClick={() => {
+                setPage(i - 1);
+                console.log(i - 1)
+            }}>{i - 1} </FancyLink>
+            <FancyLink href="#" onClick={() => {
+                setPage(i);
+                console.log(i)
+            }}>{i} </FancyLink>
+            <FancyLink href="#" onClick={() => {
+                setPage(i + 1);
+                console.log(i + 1)
+            }}>{i + 1} </FancyLink>
+            ...
+            <FancyLink href="#" onClick={() => {
+                setPage(Math.floor(count / 100 - 2));
+                console.log(i)
+            }}>{Math.floor(count / 100 - 2)} </FancyLink>
+            <FancyLink href="#" onClick={() => {
+                setPage(Math.floor(count / 100 - 1));
+                console.log(i)
+            }}>{Math.floor(count / 100 - 1)} </FancyLink>
+            <FancyLink href="#" onClick={() => {
+                setPage(Math.floor(count / 100));
+                console.log(i)
+            }}>{Math.floor(count / 100)}</FancyLink>
         </Container>
     );
 };
